@@ -107,6 +107,7 @@ docker run -d --env-file .env -p 8000:8000 nist-workflow
 - Click the `pr_url` to see the full analysis
 
 The real value is in those GitHub pull requests - they contain professional compliance reports that your team can review and act on.
+**You can find the sample ouputs in the branches of this repositry which are actually pushed to this repositry after executing of the code from local host server**
 
 ## What You Get
 
@@ -206,3 +207,4 @@ MIT License - use this however helps your organization stay compliant.
 ---
 
 **Ready to automate your NIST compliance tracking?** Follow the Quick Start guide above and you'll have reports running in minutes.
+

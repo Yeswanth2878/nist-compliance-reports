@@ -1,0 +1,35 @@
+# Core web framework
+fastapi
+uvicorn[standard]
+
+# AI/ML libraries
+openai
+
+# GitHub integration
+PyGithub
+
+# Web scraping and content processing
+requests
+beautifulsoup4
+lxml
+
+# Data processing
+pydantic
+pydantic-settings
+
+# Configuration and utilities
+python-dotenv
+PyYAML
+
+# HTTP client improvements
+httpx
+
+# Date/time processing
+python-dateutil
+
+# Testing (only if needed)
+pytest
+pytest-asyncio
+
+# Optional: Markdown processing (if needed later)
+markdown

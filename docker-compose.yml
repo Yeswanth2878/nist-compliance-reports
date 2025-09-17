@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  nist-workflow:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Required environment variables
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_REPO=${GITHUB_REPO:-your-org/nist-compliance-reports}
+      
+      # Optional environment variables for enhanced search
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - SEARCH_ENGINE_ID=${SEARCH_ENGINE_ID}
+      
+      # Application settings
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MAX_ARTICLES_DEFAULT=${MAX_ARTICLES_DEFAULT:-10}
+      
+    volumes:
+      # Mount volumes for persistent data and logs
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+      
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    networks:
+      - nist-network
+
+networks:
+  nist-network:
+    driver: bridge

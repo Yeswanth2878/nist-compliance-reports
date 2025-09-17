@@ -1,391 +1,208 @@
-# NIST Compliance Workflow: Automated Security Update Monitor
+# NIST SP 800 Compliance Update Workflow
 
-**Stop manually tracking NIST security updates.** This tool automatically monitors NIST publications, finds what matters for your development team, and creates ready-to-review compliance reports.
+**An Agentic AI system that automatically finds, analyzes, and reports on NIST security updates for software development teams.**
 
-Perfect for IT teams, security professionals, and organizations that need to stay current with cybersecurity frameworks like NIST SP 800-53, 800-171, and 800-218.
+This tool solves a simple problem: keeping up with NIST cybersecurity requirements is time-consuming and confusing. Instead of manually checking for updates, this system does it automatically and tells you exactly what matters for your development team.
 
-## What This Tool Does
+## What This Does
 
-Think of this as your personal NIST research assistant. It:
+The system performs five main tasks automatically:
 
-1. **Searches** the latest NIST cybersecurity publications
-2. **Analyzes** which updates are relevant to software development teams
-3. **Summarizes** complex security guidance into actionable recommendations
-4. **Creates** GitHub pull requests with professional compliance reports
-5. **Saves you hours** of manual research every week
+**1. Finds Latest Updates**
+- Searches the internet for new NIST SP 800-series publications
+- Looks at official NIST sources and relevant security sites
+- You can search for specific topics or let it find general updates
 
-## Who Should Use This
+**2. Extracts Content**  
+- Pulls the full text from NIST documents and articles
+- Converts everything to clean, readable Markdown format
 
-- **Security teams** who need to track NIST compliance requirements
-- **Software development teams** working on government or regulated systems
-- **IT managers** responsible for cybersecurity framework compliance
-- **Compliance officers** who need regular NIST update reports
-- **Anyone** who finds NIST publications overwhelming but necessary
+**3. Filters for Relevance**
+- Uses AI to identify content relevant to software development teams
+- Focuses on things like CI/CD security, code review practices, container security
+- Ignores generic policy stuff that doesn't affect developers
 
-## Quick Start (5 Minutes)
+**4. Creates Summaries**
+- Generates clear, one-page reports in plain English
+- Shows what's new, why it matters, and what you should do about it
+- Maps updates to specific NIST controls (SP 800-53, 800-171, 800-218)
+- Includes direct links to original sources
 
-### Prerequisites
+**5. Publishes Results**
+- Automatically creates GitHub Pull Requests with the reports
+- Each report is ready for team review and discussion
+- Keeps a history of all compliance updates over time
 
-You'll need these accounts and tools:
-- Python 3.11 or newer
+## Quick Start
+
+**You need:**
+- Python 3.11+
 - GitHub account (for storing reports)
-- OpenAI account (for AI analysis) - optional but recommended
-- Git installed on your computer
+- OpenAI API key (for AI analysis)
 
-### Step 1: Get Your Repository
+**Setup (5 minutes):**
 
-Clone this repository to your computer:
-
+1. Clone this repository
 ```bash
-git clone https://github.com/Yeswanth2878/nist-compliance-reports.git
-cd nist-compliance-reports
+git clone https://github.com/your-username/nist-compliance-workflow
+cd nist-compliance-workflow
 ```
 
-### Step 2: Install Dependencies
-
+2. Install dependencies
 ```bash
-# Install required Python packages
 pip install -r requirements.txt
 ```
 
-### Step 3: Set Up Your API Keys
-
-Create a file called `.env` in the project folder:
-
+3. Create your `.env` file with API keys
 ```bash
-# Copy the example file
 cp .env.example .env
+# Edit .env with your actual keys
 ```
 
-Edit the `.env` file with your actual credentials:
-
-```
-# Required: Your OpenAI API key (get from https://platform.openai.com/api-keys)
-OPENAI_API_KEY=sk-your-openai-api-key-here
-
-# Required: GitHub token (get from https://github.com/settings/tokens)
-GITHUB_TOKEN=github_pat_your-github-token-here
-
-# Required: Your GitHub repository for reports
-GITHUB_REPO=your-username/nist-compliance-reports
-
-# Optional: Google Search (for enhanced article discovery)
-GOOGLE_API_KEY=your-google-api-key
-SEARCH_ENGINE_ID=your-search-engine-id
-```
-
-**Getting your API keys:**
-- **OpenAI:** Sign up at OpenAI, go to API Keys, create a new key
-- **GitHub:** Go to Settings > Developer Settings > Personal Access Tokens > Generate new token (need 'repo' permissions)
-
-### Step 4: Test It
-
-Run a quick test to make sure everything works:
-
+4. Test it
 ```bash
-# Test with a simple topic
-python main.py --topic "cybersecurity framework" --max-articles 3
+python main.py --topic "cybersecurity framework" --max-articles 5
 ```
 
-You should see the tool search for articles, analyze them, and create a summary.
+That's it. The system will find NIST updates, analyze them, and create a report in your GitHub repository.
 
-### Step 5: Start the Web Service
+## How to Use It
 
-```bash
-# Start the web API
-python main.py --server --port 8000
-```
-
-Visit `http://localhost:8000/docs` to see the interactive API documentation.
-
-## How to Use
-
-### Method 1: Command Line (Simple)
-
-Run one-time reports directly from your terminal:
-
+**Command Line (Simple)**
 ```bash
 # Get updates on a specific topic
-python main.py --topic "secure software development" --max-articles 5
+python main.py --topic "secure software development" --max-articles 10
 
-# Get general NIST updates
-python main.py --max-articles 10
-
-# Focus on supply chain security
-python main.py --topic "supply chain security" --max-articles 3
+# Get general NIST updates  
+python main.py --max-articles 15
 ```
 
-### Method 2: Web API (Advanced)
-
-Start the web service and make API calls:
-
+**Web API (Advanced)**
 ```bash
-# Start the service
+# Start the web service
+python main.py --server --port 8000
+
+# Make API calls
+curl -X POST "http://localhost:8000/workflow/run" \
+  -H "Content-Type: application/json" \
+  -d '{"topic": "DevOps security", "max_articles": 8}'
+```
+
+**Docker (Production)**
+```bash
+# Build and run
+docker build -t nist-workflow .
+docker run -d --env-file .env -p 8000:8000 nist-workflow
+```
+
+## Where to Find Your Reports
+
+**Main Output: GitHub Pull Requests**
+- Go to `https://github.com/your-username/nist-compliance-reports/pulls`
+- Each run creates a new PR with a complete compliance report
+- Reports include analysis, recommendations, and action items
+
+**API Responses**
+- Web API returns direct links to the generated reports
+- Click the `pr_url` to see the full analysis
+
+The real value is in those GitHub pull requests - they contain professional compliance reports that your team can review and act on.
+
+## What You Get
+
+Each report includes:
+
+- **Executive Summary**: What's changed and why it matters
+- **Latest Updates**: New NIST publications with dates and versions
+- **Action Items**: Specific steps for your development team
+- **Control Mappings**: How updates relate to NIST SP 800-53, 800-171, and 800-218
+- **Source Citations**: Direct links to original NIST documents
+
+## Configuration
+
+**API Keys Required:**
+```bash
+# In your .env file:
+OPENAI_API_KEY=your-openai-key        # For AI analysis
+GITHUB_TOKEN=your-github-token        # For creating reports  
+GITHUB_REPO=username/repo-name        # Where to store reports
+```
+
+**Optional Enhancements:**
+```bash
+GOOGLE_API_KEY=your-google-key        # For better search results
+SEARCH_ENGINE_ID=your-search-id       # Google Custom Search
+```
+
+## Technical Details
+
+**Built With:**
+- FastAPI for the web interface
+- OpenAI for intelligent content analysis
+- PyGithub for automated report publishing
+- BeautifulSoup for content extraction
+- Docker for easy deployment
+
+**Architecture:**
+- Containerized service that can run anywhere
+- REST API with interactive documentation
+- Automated fallbacks if external services fail
+- Keyword-based analysis when AI isn't available
+
+## Deployment Options
+
+**Local Development:**
+```bash
 python main.py --server --port 8000
 ```
 
-Then use curl or any API client:
-
+**Docker Container:**
 ```bash
-curl -X POST "http://localhost:8000/workflow/run" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "topic": "DevOps security",
-    "max_articles": 7
-  }'
-```
-
-### Method 3: Docker (Production)
-
-For production deployments:
-
-```bash
-# Build the container
 docker build -t nist-workflow .
-
-# Run with environment file
-docker run -d --name nist-workflow --env-file .env -p 8000:8000 nist-workflow
+docker run -d --env-file .env -p 8000:8000 nist-workflow
 ```
 
-## Understanding the Output
-
-The tool creates comprehensive reports with:
-
-**Executive Summary:** High-level overview of what's changed
-**Latest Updates:** Specific NIST publications with dates and versions  
-**Action Items:** Practical steps your team should take
-**Control Mappings:** How updates relate to specific NIST controls (800-53, 800-171, 800-218)
-**Implementation Guidance:** Concrete recommendations for your environment
-
-Each report gets automatically published as a GitHub Pull Request, making it easy to:
-- Review with your team
-- Track compliance over time  
-- Archive decisions and implementations
-
-## Configuration Options
-
-### Search Behavior
-
-Control how the tool searches for content:
-
-```python
-# In main.py, modify these settings:
-NIST_SEARCH_TERMS = [
-    "NIST SP 800-53",           # Security controls
-    "NIST SP 800-171",          # CUI protection  
-    "NIST SP 800-218",          # Secure software development
-    "cybersecurity framework",   # General framework updates
-    "your custom terms here"     # Add your specific interests
-]
-```
-
-### Relevance Filtering
-
-Adjust which articles are considered relevant to your organization:
-
-- The tool automatically filters for software development relevance
-- Looks for keywords like: CI/CD, DevOps, SAST, DAST, containers, cloud security
-- You can modify the keyword list in `_keyword_based_relevance()` method
-
-### Output Customization
-
-Modify the summary template in `_generate_fallback_summary()` to match your organization's needs.
-
-## Scheduling Automated Reports
-
-### Option 1: Cron Job (Linux/Mac)
-
-```bash
-# Edit your crontab
-crontab -e
-
-# Add this line for weekly reports every Monday at 9 AM
-0 9 * * 1 cd /path/to/nist-workflow && python main.py --topic "weekly update" --max-articles 10
-```
-
-### Option 2: Windows Task Scheduler
-
-1. Open Task Scheduler
-2. Create Basic Task
-3. Set trigger (weekly/monthly)
-4. Set action to run your Python script
-
-### Option 3: GitHub Actions
-
-Create `.github/workflows/nist-reports.yml`:
-
-```yaml
-name: Weekly NIST Report
-on:
-  schedule:
-    - cron: '0 9 * * 1'  # Every Monday at 9 AM
-  workflow_dispatch:      # Manual trigger
-
-jobs:
-  generate-report:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.11'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Generate NIST report
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPO: ${{ github.repository }}
-      run: python main.py --max-articles 15
-```
+**Scheduled Automation:**
+- Add cron jobs for weekly reports
+- Use GitHub Actions for automated scheduling
+- Deploy to cloud services for 24/7 monitoring
 
 ## Troubleshooting
 
-### "No NIST updates found"
-
-**Cause:** The tool can't reach NIST websites or your search terms are too specific.
-
-**Solutions:**
+**"No NIST updates found"**
 - Check your internet connection
-- Try broader search terms like "cybersecurity" or "framework"
-- The tool includes demo data as a fallback for testing
+- Try broader search terms
+- The system includes demo data for testing
 
-### "GitHub not configured"  
+**"GitHub not configured"**
+- Verify your `.env` file has correct GitHub credentials
+- Make sure the target repository exists
+- Check that your GitHub token has proper permissions
 
-**Cause:** Your GitHub credentials aren't set up correctly.
+**Environment variables not loading**
+- Ensure `.env` file is in the same directory as `main.py`
+- Restart the service after changing environment variables
+- Check for typos in variable names
 
-**Solutions:**
-- Verify your `.env` file has the correct `GITHUB_TOKEN` and `GITHUB_REPO`
-- Make sure the repository exists and you have write access
-- Check that your GitHub token has 'repo' permissions
+## What's Next
 
-### "OpenAI quota exceeded"
+This foundation enables several powerful enhancements:
 
-**Cause:** You've hit your OpenAI usage limits.
+- **Conversational Interface**: Ask questions like "What NIST updates affect our Docker setup?"
+- **Interactive Dashboard**: Visual compliance tracking and team collaboration
+- **Smart Integration**: Connect with Slack, Jira, and security tools
+- **Custom Analysis**: Train the AI on your specific environment and needs
 
-**Solutions:**
-- The tool automatically falls back to keyword-based analysis
-- Add credits to your OpenAI account for AI-powered summaries
-- Consider using the tool less frequently
-
-### Environment variables not loading
-
-**Cause:** The `.env` file isn't being read properly.
-
-**Solutions:**
-- Make sure the `.env` file is in the same folder as `main.py`
-- Check there are no extra spaces or quotes in your `.env` file
-- Try setting environment variables directly in your terminal
-
-## API Reference
-
-### POST /workflow/run
-
-Triggers a complete NIST compliance workflow.
-
-**Request Body:**
-```json
-{
-  "topic": "secure software development",
-  "max_articles": 10
-}
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "summary_url": "https://github.com/user/repo/blob/branch/file.md",
-  "pr_url": "https://github.com/user/repo/pull/123",
-  "articles_processed": 8
-}
-```
-
-### GET /health
-
-Check if the service is running properly.
-
-**Response:**
-```json
-{
-  "status": "healthy",
-  "timestamp": "2024-12-17T10:30:00"
-}
-```
-
-## Cost Considerations
-
-**Free tier usage:**
-- GitHub: Unlimited public repositories
-- OpenAI: $5-20/month depending on usage
-- Google Search: 100 queries/day free
-
-**Typical monthly costs for a team:**
-- Small team (weekly reports): $10-30/month
-- Medium team (bi-weekly reports): $20-50/month  
-- Enterprise (daily monitoring): $50-150/month
-
-The tool is designed to be cost-effective by using intelligent fallbacks and caching.
-
-## Security and Privacy
-
-**Data handling:**
-- No NIST content is permanently stored
-- API keys are only used for their intended services
-- All processing happens on your infrastructure
-
-**Best practices:**
-- Use environment variables for all secrets
-- Regularly rotate your API keys
-- Run on private networks in production
-- Review generated reports before acting on recommendations
+The current system provides solid automated NIST monitoring. These future features would make it feel more like having a knowledgeable compliance assistant on your team.
 
 ## Contributing
 
-Found a bug or want to add a feature?
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-**Common improvements we welcome:**
-- Additional NIST data sources
-- Better content filtering
-- New output formats (PDF, Slack, email)
-- Integration with other compliance tools
-
-## Support
-
-**Having trouble?** Here's how to get help:
-
-1. **Check the troubleshooting section** above
-2. **Look at existing issues** on GitHub
-3. **Create a new issue** with:
-   - What you were trying to do
-   - What happened instead
-   - Your environment (OS, Python version)
-   - Relevant log output
-
-**For urgent issues:** Include "URGENT" in your issue title.
+Found a bug or want to add features? Pull requests welcome.
 
 ## License
 
-This project is licensed under the MIT License. You're free to use, modify, and distribute it for both commercial and non-commercial purposes.
-
-## Acknowledgments
-
-Built with:
-- **FastAPI** for the web framework
-- **OpenAI** for intelligent content analysis  
-- **NIST** for providing comprehensive cybersecurity guidance
-- **BeautifulSoup** for web content extraction
-- **PyGithub** for repository automation
-
-Special thanks to the cybersecurity community for making compliance guidance accessible and actionable.
+MIT License - use this however helps your organization stay compliant.
 
 ---
 
-**Ready to automate your NIST compliance monitoring?** Start with the Quick Start guide above, and you'll have automated reports running in minutes.
+**Ready to automate your NIST compliance tracking?** Follow the Quick Start guide above and you'll have reports running in minutes.

@@ -205,13 +205,11 @@ The current system provides solid automated NIST monitoring. These future featur
 
 Found a bug or want to add features? Pull requests welcome.
 
-## License
-
-MIT License - use this however helps your organization stay compliant.
 
 ---
 
 **Ready to automate your NIST compliance tracking?** Follow the Quick Start guide above and you'll have reports running in minutes.
+
 
 
 

@@ -140,6 +140,7 @@ GOOGLE_API_KEY=your-google-key        # For better search results
 SEARCH_ENGINE_ID=your-search-id       # Google Custom Search
 ```
 
+**Sample search Engine id : 933ef038d2c96438c which are personalised to search in NIST relaated websites**
 ## Technical Details
 
 **Built With:**
@@ -209,6 +210,7 @@ Found a bug or want to add features? Pull requests welcome.
 ---
 
 **Ready to automate your NIST compliance tracking?** Follow the Quick Start guide above and you'll have reports running in minutes.
+
 
 
 
